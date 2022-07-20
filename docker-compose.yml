@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  php:
+    build:
+      context: ./app
+      dockerfile: dockerfile
+    environment:
+      - MYSQL_HOST: "${MYSQL_HOST}"
+      - MYSQL_PORT: "${MYSQL_PORT}"
+      - MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+    ports:
+      - 80:80
+    volumes:
+      - './app:/usr/myapp'
+    depends_on:
+      - db
+    container_name: php_app
+  db:
+    image: 'mysql'
+    ports:
+      - ${MYSQL_PORT}/3306
+    volumes:
+      - ./DB:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
