@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   php:
     build:
@@ -9,17 +9,17 @@ services:
       MYSQL_PORT: "${MYSQL_PORT}"
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     ports:
-      - 80:80
+      - 8080:80
     volumes:
       - './app:/usr/myapp'
     depends_on:
       - db
-    container_name: php_app
+    container_name: php_TeplomerWeb
   db:
     image: 'mysql'
     ports:
       - ${MYSQL_PORT}:3306
-    restart: ${MYSQL_RESTART}
+    restart: always
     volumes:
       - ./DB:/var/lib/mysql
     environment:
