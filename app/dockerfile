@@ -1,7 +1,10 @@
-FROM php:7.4-cli
-
-WORKDIR /usr/myapp
-
-COPY . .
-
-CMD ["php", "index.php"]
+FROM php:7.4-apache
+COPY ./ /var/www/html/
+RUN docker-php-ext-install mysqli
+RUN apt-get update && apt install -y  \
+nano \
+&& rm -rf /var/lib/apt/lists/*
+RUN apt upgrade
+RUN echo  "root:pitevna" | chpasswd
+RUN apt-get update -y
+RUN apt-get install -y iputils-ping
